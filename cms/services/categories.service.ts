@@ -23,7 +23,18 @@ export interface UpdateCategoryDto {
 
 export const categoriesService = {
   async getCategories() {
-    return apiClient.get('/categories');
+    // Debug log to ensure correct endpoint is used
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('[categoriesService] getCategories()');
+    }
+    // apiClient already prefixes with `/api`, so this becomes `/api/categories`
+    const res = await apiClient.get('/categories');
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('[categoriesService] getCategories response:', res);
+    }
+    return res;
   },
 
   async getCategory(id: string) {

@@ -21,6 +21,8 @@ export default function BlogManagement() {
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<any>(null);
+  console.log(posts); 
+  console.log(categories);
 
   useEffect(() => {
     dispatch(fetchPosts());
