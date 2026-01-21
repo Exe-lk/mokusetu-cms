@@ -4,14 +4,32 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prisma:generate": "npx prisma generate",
+    "prisma:push": "npx prisma db push",
+    "prisma:studio": "npx prisma studio",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:migrate:deploy": "npx prisma migrate deploy",
+    "setup": "npx prisma generate && npx prisma db push"
   },
   "dependencies": {
+    "@prisma/client": "^6.11.0",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@supabase/supabase-js": "^2.90.1",
+    "@tiptap/extension-color": "^3.15.3",
+    "@tiptap/extension-link": "^3.15.3",
+    "@tiptap/extension-text-style": "^3.15.3",
+    "@tiptap/extension-underline": "^3.15.3",
+    "@tiptap/react": "^3.15.3",
+    "@tiptap/starter-kit": "^3.15.3",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "sweetalert2": "^11.26.17"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,6 +38,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "prisma": "^6.11.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
