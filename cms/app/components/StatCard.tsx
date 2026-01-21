@@ -16,7 +16,7 @@ export default function StatCard({ stat }: { stat: StatCardType }) {
   };
 
   return (
-    <div className={`${bgColors[stat.color as keyof typeof bgColors]} border rounded-xl p-4 sm:p-6 hover:shadow-lg transition-shadow`}>
+    <div className={`${bgColors[stat.color as keyof typeof bgColors]} border rounded-xl p-4 hover:shadow-lg transition-shadow`}>
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="text-xs sm:text-sm font-medium text-gray-600 uppercase tracking-wide mb-2">
@@ -35,7 +35,7 @@ export default function StatCard({ stat }: { stat: StatCardType }) {
             </p>
           )}
         </div>
-        <div className={`${iconBg[stat.color as keyof typeof iconBg]} w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center text-xl sm:text-2xl text-white`}>
+        <div className={`${iconBg[stat.color as keyof typeof iconBg]} w-12 h-12 rounded-lg flex items-center justify-center text-2xl text-white`}>
           {stat.icon}
         </div>
       </div>

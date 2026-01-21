@@ -1,5 +1,6 @@
 import { BlogPost, Activity, StatCard, HeroSection, StatisticsBar, ContentSection } from '../types';
 import { MdVisibility, MdArticle, MdEmail } from 'react-icons/md';
+import React from 'react';
 
 export const blogPosts: BlogPost[] = [
   {
@@ -66,7 +67,7 @@ export const dashboardStats: StatCard[] = [
     value: '24,592',
     change: '+19.5%',
     changeType: 'positive',
-    icon: <MdVisibility />,
+    icon: React.createElement(MdVisibility),
     color: 'blue'
   },
   {
@@ -74,7 +75,7 @@ export const dashboardStats: StatCard[] = [
     value: 128,
     change: 'No change',
     changeType: 'neutral',
-    icon: <MdArticle />,
+    icon: React.createElement(MdArticle),
     color: 'red'
   },
   {
@@ -82,7 +83,7 @@ export const dashboardStats: StatCard[] = [
     value: 14,
     change: '4 New',
     changeType: 'neutral',
-    icon: <MdEmail />,
+    icon: React.createElement(MdEmail),
     color: 'orange'
   }
 ];

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { 
   MdDashboard, 
   MdPages, 
@@ -12,6 +13,7 @@ import {
   MdSettings,
   MdDarkMode 
 } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 interface NavItem {
   name: string;
@@ -21,16 +23,33 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: <MdDashboard /> },
-  { name: 'Pages', href: '/pages', icon: <MdPages /> },
+  { name: 'Home Page', href: '/home', icon: <MdPages /> },
+  { name: 'About Page', href: '/about', icon: <MdPages /> },
   { name: 'Blog Posts', href: '/blog', icon: <MdArticle /> },
-  { name: 'Services', href: '/services', icon: <MdBusinessCenter /> },
-  { name: 'Team', href: '/team', icon: <MdPeople /> },
-  { name: 'Settings', href: '/settings', icon: <MdSettings /> },
+  { name: 'Services', href: '/services', icon: <MdBusinessCenter /> }
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out of the system.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        router.push('/');
+      }
+    });
+  };
 
   return (
     <>
@@ -102,11 +121,8 @@ export default function Sidebar() {
         </nav>
 
         <div className="p-4 border-t border-gray-700">
-          <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors">
-            <span className="flex items-center gap-2">
-              <MdDarkMode className="text-lg" />
-              <span className="text-sm">Switch Theme</span>
-            </span>
+          <button onClick={handleLogout} className="w-full bg-red-600 text-white py-2 rounded-lg"> 
+            Logout
           </button>
         </div>
       </aside>

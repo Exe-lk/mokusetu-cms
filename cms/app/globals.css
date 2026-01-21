@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.section {
+  @apply py-12 md:py-16;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.floating-paper {
+  @apply bg-white shadow-lg;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.fade-in {
+  @apply opacity-0 transition-opacity duration-700;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.fade-in.visible {
+  @apply opacity-100;
+}
+
+.slide-in-left {
+  @apply opacity-0 -translate-x-8 transition-all duration-700;
+}
+
+.slide-in-left.visible {
+  @apply opacity-100 translate-x-0;
+}
+
+.slide-in-right {
+  @apply opacity-0 translate-x-8 transition-all duration-700;
+}
+
+.slide-in-right.visible {
+  @apply opacity-100 translate-x-0;
+}
+
+.scale-in {
+  @apply opacity-0 scale-95 transition-all duration-700;
+}
+
+.scale-in.visible {
+  @apply opacity-100 scale-100;
+}
+
+.gradient-text-brand {
+  @apply bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent;
+}
+
+.text-muted {
+  @apply text-gray-600;
+}
+
+.icon-container-unique {
+  @apply bg-gradient-to-br from-red-600 to-red-800 rounded-full;
+}
+
+.btn-primary {
+  @apply inline-flex items-center px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors;
+}
+
+.ProseMirror {
+  @apply outline-none min-h-[300px] p-4;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-gray-400;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none; 
+}
+
+.ProseMirror h1 {
+  @apply text-3xl font-bold mb-4 mt-6;
+}
+
+.ProseMirror h2 {
+  @apply text-2xl font-bold mb-3 mt-5;
+}
+
+.ProseMirror h3 {
+  @apply text-xl font-bold mb-2 mt-4;
+}
+
+.ProseMirror h4 {
+  @apply text-lg font-bold mb-2 mt-3;
+}
+
+.ProseMirror h5 {
+  @apply text-base font-bold mb-2 mt-3;
+}
+
+.ProseMirror h6 {
+  @apply text-sm font-bold mb-2 mt-3;
+}
+
+.ProseMirror p {
+  @apply mb-4;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply mb-4 pl-6;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror li {
+  @apply mb-2;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic my-4;
+}
+
+.ProseMirror code {
+  @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.ProseMirror pre {
+  @apply bg-gray-100 p-4 rounded-lg overflow-x-auto my-4;
+}
+
+.ProseMirror pre code {
+  @apply bg-transparent p-0;
+}
+
+.ProseMirror strong {
+  @apply font-bold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+
+.ProseMirror u {
+  @apply underline;
+}
+
+.ProseMirror s {
+  @apply line-through;
+}
+
+.ProseMirror a {
+  @apply text-blue-600 underline cursor-pointer;
+}
+
+.ProseMirror a:hover {
+  @apply text-blue-800;
 }
