@@ -18,13 +18,26 @@ class ApiClient {
     options?: RequestInit
   ): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      const url = `${this.baseUrl}${endpoint}`;
+
+      // Debug logging for API calls
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.log('[ApiClient] Request:', options?.method || 'GET', url);
+      }
+
+      const response = await fetch(url, {
         headers: {
           'Content-Type': 'application/json',
           ...options?.headers,
         },
         ...options,
       });
+
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.log('[ApiClient] Response status:', response.status, url);
+      }
 
       const data = await response.json();
 
@@ -34,7 +47,8 @@ class ApiClient {
 
       return data;
     } catch (error) {
-      console.error('API Error:', error);
+      // eslint-disable-next-line no-console
+      console.error('[ApiClient] Error for endpoint', endpoint, error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',

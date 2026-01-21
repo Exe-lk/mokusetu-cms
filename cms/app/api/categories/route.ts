@@ -4,6 +4,7 @@ import { successResponse, createdResponse, errorResponse } from '@/lib/api-respo
 
 export async function GET() {
   try {
+    console.log('[API] /api/categories GET called');
     const categories = await prisma.category.findMany({
       orderBy: { name: 'asc' },
       include: {
@@ -13,9 +14,11 @@ export async function GET() {
       },
     });
 
+    console.log('[API] /api/categories returning count:', categories.length);
+
     return successResponse({ categories });
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('[API] Error fetching categories:', error);
     return errorResponse(error);
   }
 }

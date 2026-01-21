@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/store/hooks';
-import { createPost, updatePost } from '@/store/slices/postsSlice';
+import { createPost, updatePost, fetchPosts } from '@/store/slices/postsSlice';
 import type { Post } from '@/services';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -9,6 +9,7 @@ import Underline from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
+import Swal from 'sweetalert2';
 
 interface PostFormModalProps {
   isOpen: boolean;
@@ -230,10 +231,40 @@ export default function PostFormModal({ isOpen, onClose, post }: PostFormModalPr
 
       if (post?.id) {
         await dispatch(updatePost({ id: post.id, data: postData })).unwrap();
+        await dispatch(fetchPosts()).unwrap();
+        Swal.fire({
+          title: 'Updated',
+          text: 'Post updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+        onClose();
       } else {
         await dispatch(createPost(postData)).unwrap();
+        await dispatch(fetchPosts()).unwrap();
+
+        setFormData({
+          title: '',
+          content: '',
+          excerpt: '',
+          featuredImage: '',
+          published: false,
+          categoryId: '',
+        });
+        setImagePreview('');
+        if (editor) {
+          editor.commands.clearContent();
+        }
+
+        Swal.fire({
+          title: 'Created',
+          text: 'Post created successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+        onClose();
+
       }
-      onClose();
     } catch (error) {
       console.error('Error saving post:', error);
       alert('Error saving post. Please try again.');
@@ -258,7 +289,12 @@ export default function PostFormModal({ isOpen, onClose, post }: PostFormModalPr
       setFormData({ ...formData, published: newPublishedState });
     } catch (error) {
       console.error('Error toggling publish status:', error);
-      alert('Failed to update publish status');
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to update publish status',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     } finally {
       setLoading(false);
     }
