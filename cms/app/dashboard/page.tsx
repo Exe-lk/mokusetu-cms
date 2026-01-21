@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '../components/Layout';
 import StatCard from '../components/StatCard';
@@ -8,24 +8,33 @@ import ActivityFeed from '../components/ActivityFeed';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchPosts } from '@/store/slices/postsSlice';
 import { fetchServices } from '@/store/slices/servicesSlice';
+import { loadStoredUser } from '@/store/slices/authSlice';
 import { MdArticle, MdBusiness } from 'react-icons/md';
 
 export default function Dashboard() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [authChecked, setAuthChecked] = useState(false);
   const { posts, loading: postsLoading } = useAppSelector((state) => state.posts);
   const { services, loading: servicesLoading } = useAppSelector((state) => state.services);
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, user, loading: authLoading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    dispatch(loadStoredUser());
+    setAuthChecked(true);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (authChecked && !isAuthenticated) {
       router.push('/');
       return;
     }
 
-    dispatch(fetchPosts({ limit: 10 }));
-    dispatch(fetchServices(true));
-  }, [dispatch, isAuthenticated, router]);
+    if (authChecked && isAuthenticated && user?.role === 'admin') {
+      dispatch(fetchPosts({ limit: 10 }));
+      dispatch(fetchServices(true));
+    }
+  }, [dispatch, isAuthenticated, user, router, authChecked]);
 
   const stats = useMemo(() => {
     const totalPosts = posts.length;
@@ -105,10 +114,14 @@ export default function Dashboard() {
       }));
   }, [recentPosts, services]);
 
-  const isLoading = postsLoading || servicesLoading;
-
-  if (!isAuthenticated) {
-    return null;
+  const isLoading = postsLoading || servicesLoading || authLoading || !authChecked;
+  
+  if (!authChecked || !isAuthenticated || user?.role !== 'admin') {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-red-600"></div>
+      </div>
+    );
   }
 
   return (
