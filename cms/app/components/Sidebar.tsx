@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/store/hooks';
+import { logout } from '@/store/slices/authSlice';
 import { 
   MdDashboard, 
   MdPages, 
@@ -33,6 +35,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     Swal.fire({
@@ -44,9 +47,8 @@ export default function Sidebar() {
       cancelButtonColor: '#d33',
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        router.push('/');
+        dispatch(logout());
+        router.replace('/');
       }
     });
   };

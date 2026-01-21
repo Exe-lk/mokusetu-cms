@@ -18,12 +18,14 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    dispatch(loadStoredUser());
-  }, [dispatch]);
-
+    if (!isAuthenticated) {
+      dispatch(loadStoredUser());
+    }
+  }, [dispatch, isAuthenticated]);
+  
   useEffect(() => {
     if (isAuthenticated && user?.role === 'admin') {
-      router.push('/dashboard');
+      router.replace('/dashboard');
     }
   }, [isAuthenticated, user, router]);
 
