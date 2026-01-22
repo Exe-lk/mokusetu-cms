@@ -89,3 +89,4 @@ const aboutSlice = createSlice({
 
 export const { clearError } = aboutSlice.actions;
 export default aboutSlice.reducer;
+
