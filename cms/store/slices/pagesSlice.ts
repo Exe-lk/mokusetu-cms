@@ -110,3 +110,4 @@ const pagesSlice = createSlice({
 
 export const { clearError } = pagesSlice.actions;
 export default pagesSlice.reducer;
+
