@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { homeService, HomePage, UpdateHomePageDto } from '@/services/home.services';
 
 interface HomeState {

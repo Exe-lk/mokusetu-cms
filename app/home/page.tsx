@@ -13,6 +13,7 @@ export default function PageEditor() {
   const dispatch = useAppDispatch();
   const { home, loading } = useAppSelector((state) => state.home);
   const { services } = useAppSelector((state) => state.services);
+  console.log(home);  
 
   const [hero, setHero] = useState({
     titleHero: '',

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { aboutService, AboutPage, UpdateAboutPageDto } from '@/services/about.service';
 
 interface AboutState {
@@ -81,8 +81,17 @@ const aboutSlice = createSlice({
       state.error = action.error.message || 'Failed to update about page';
     });
 
+    builder.addCase(initializeAboutPage.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
     builder.addCase(initializeAboutPage.fulfilled, (state, action) => {
+      state.loading = false;
       state.aboutPage = action.payload;
+    });
+    builder.addCase(initializeAboutPage.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Failed to initialize about page';
     });
   },
 });
