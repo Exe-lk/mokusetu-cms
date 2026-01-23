@@ -77,7 +77,7 @@ export default function Services() {
   };
 
   return (
-    <Layout title="Add Services">
+    <Layout title="Add Services" subtitle="Create and manage your service offerings">
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>

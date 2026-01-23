@@ -125,7 +125,7 @@ export default function Dashboard() {
   }
 
   return (
-    <Layout title="Dashboard">
+    <Layout title="Dashboard" subtitle="Here's what's happening with MokuSetu today.">
       <div className="space-y-4">
         {isLoading ? (
           <div className="flex justify-center items-center h-64">

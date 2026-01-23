@@ -98,7 +98,7 @@ export default function BlogManagement() {
   };
 
   return (
-    <Layout title="Blog Posts Management">
+    <Layout title="Blog Posts Management" subtitle="Manage and organize your blog posts and articles">
       <div className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
