@@ -51,6 +51,8 @@ export async function PUT(request: NextRequest) {
       whyChooseTitle,
       whyChooseSubtitle,
       whyChooseCards,
+      footerTitle,
+      footerSubtitle,
     } = body;
 
     const existing = await prisma.home.findFirst();
@@ -76,6 +78,8 @@ export async function PUT(request: NextRequest) {
       ...(whyChooseCards !== undefined && {
         whyChooseCards: JSON.stringify(whyChooseCards),
       }),
+      ...(footerTitle !== undefined && { footerTitle }),
+      ...(footerSubtitle !== undefined && { footerSubtitle }),
     };
 
     const home = existing

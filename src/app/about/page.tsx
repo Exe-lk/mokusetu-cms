@@ -5,7 +5,7 @@ import AboutPageEditor from '../components/AboutPageEditor';
 
 export default function AboutManagement() {
   return (
-    <Layout title="About Page Management">
+    <Layout title="About Us Page Management">
       <AboutPageEditor />
     </Layout>
   );

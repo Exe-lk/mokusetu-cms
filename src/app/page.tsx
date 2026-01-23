@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { MdDashboard, MdEdit } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
 import { login, clearError, loadStoredUser } from '@/src/store/slices/authSlice';
+import Image from 'next/image';
 
 export default function Login() {
   const router = useRouter();
@@ -50,10 +51,14 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-2xl shadow-2xl overflow-hidden">
         <div className="hidden lg:flex flex-col justify-center bg-gradient-to-br from-[#1e293b] to-[#334155] p-12 text-white relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6">
-              <span className="text-[#1e293b] font-bold text-3xl">M</span>
-            </div>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <Image 
+            src="/assests/LogoonWhite.png" 
+            alt="logo" 
+            width={80} 
+            height={80} 
+            className="mx-auto mb-6"
+          />
             <h1 className="text-4xl font-bold mb-4">MokuSetu Admin</h1>
             <p className="text-xl text-gray-300 mb-8">Business Consultancy CMS</p>
             

@@ -36,6 +36,8 @@ export interface HomePage {
   whyChooseTitle: string | null;
   whyChooseSubtitle: string | null;
   whyChooseCards: HomeWhyChooseCard[];
+  footerTitle: string | null;
+  footerSubtitle: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -57,6 +59,8 @@ export interface UpdateHomePageDto {
   whyChooseTitle?: string | null;
   whyChooseSubtitle?: string | null;
   whyChooseCards?: HomeWhyChooseCard[];
+  footerTitle?: string | null;
+  footerSubtitle?: string | null;
 }
 
 export const homeService = {

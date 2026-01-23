@@ -5,6 +5,7 @@ import ServiceFormModal from '../components/ServiceFormModal';
 import ServicePreviewModal from '../components/ServicePreviewModal';
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
 import { fetchServices, deleteService } from '@/src/store/slices/servicesSlice';
+import Swal from 'sweetalert2';
 
 export default function Services() {
   const dispatch = useAppDispatch();
@@ -30,8 +31,23 @@ export default function Services() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this service?')) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this service!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    });
       await dispatch(deleteService(id));
+      if (result.isConfirmed) {
+      Swal.fire({
+        title: 'Deleted',
+        text: 'Service deleted successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
     }
   };
 
@@ -61,7 +77,7 @@ export default function Services() {
   };
 
   return (
-    <Layout title="Services">
+    <Layout title="Add Services">
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>

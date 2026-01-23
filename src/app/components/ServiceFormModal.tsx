@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/src/store/hooks';
 import { createService, updateService } from '@/src/store/slices/servicesSlice';
 import type { Service, CardContent, ServiceItem, WhyChoosePoint } from '@/src/services';
+import Image from 'next/image';
+import Swal from 'sweetalert2';
 
 interface ServiceFormModalProps {
   isOpen: boolean;
