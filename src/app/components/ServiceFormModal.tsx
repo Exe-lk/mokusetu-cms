@@ -659,6 +659,9 @@ export default function ServiceFormModal({ isOpen, onClose, service }: ServiceFo
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   min="0"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  (determines the position of an item in the list based on the number given)
+                </p>
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">

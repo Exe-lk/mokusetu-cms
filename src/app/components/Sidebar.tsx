@@ -114,7 +114,7 @@ export default function Sidebar() {
           {isCollapsed ? <MdChevronRight className="w-4 h-4" /> : <MdChevronLeft className="w-4 h-4" />}
         </button>
 
-        <nav className="flex-1 p-4 overflow-y-auto">
+        <nav className="flex-1 p-4">
           <ul className={`space-y-2 ${isCollapsed ? 'flex flex-col items-center' : ''}`}>
             {navItems.map((item) => {
               const isActive = pathname === item.href || 

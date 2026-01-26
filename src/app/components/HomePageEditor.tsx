@@ -380,8 +380,8 @@ function EditTab(props: any) {
           onClick={() => setActiveSection('whyChoose')}
         />
         <SectionCard
-          title="Footer Section"
-          description="Footer title and subtitle"
+          title="Call-to-Action Section"
+          description="Call-to-action title and subtitle"
           onClick={() => setActiveSection('footer')}
         />
       </div>

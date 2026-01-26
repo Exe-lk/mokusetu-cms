@@ -196,12 +196,22 @@ export default function PostFormModal({ isOpen, onClose, post }: PostFormModalPr
         setFormData({ ...formData, featuredImage: result.data.url });
         setImagePreview(result.data.url);
       } else {
-        alert('Failed to upload image: ' + result.error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to upload image: ' + result.error,
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
         setImagePreview('');
       }
     } catch (error) {
       console.error('Upload error:', error);
-      alert('Failed to upload image. Please try again.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to upload image. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
       setImagePreview('');
     } finally {
       setLoading(false);
@@ -218,7 +228,12 @@ export default function PostFormModal({ isOpen, onClose, post }: PostFormModalPr
     e.preventDefault();
     
     if (!hasContent(formData.content)) {
-      alert('Please enter some content for the post.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Please enter some content for the post.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
       return;
     }
 
@@ -267,7 +282,12 @@ export default function PostFormModal({ isOpen, onClose, post }: PostFormModalPr
       }
     } catch (error) {
       console.error('Error saving post:', error);
-      alert('Error saving post. Please try again.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Error saving post. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     } finally {
       setLoading(false);
     }

@@ -42,8 +42,25 @@ export default function BlogManagement() {
     };
   }, []);
 
+  const formatCategoryName = (categoryName: string): string => {
+    // Check if category name is in format "YYYY-MM" (e.g., "2026-01")
+    const match = categoryName.match(/^(\d{4})-(\d{2})$/);
+    if (match) {
+      const year = match[1];
+      const monthNum = parseInt(match[2], 10);
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                         'July', 'August', 'September', 'October', 'November', 'December'];
+      if (monthNum >= 1 && monthNum <= 12) {
+        return `${year} ${monthNames[monthNum - 1]}`;
+      }
+    }
+    // If not in expected format, return as is
+    return categoryName;
+  };
+
   const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(categorySearchQuery.toLowerCase())
+    category.name.toLowerCase().includes(categorySearchQuery.toLowerCase()) ||
+    formatCategoryName(category.name).toLowerCase().includes(categorySearchQuery.toLowerCase())
   );
 
   const filteredPosts = posts.filter(post => {
@@ -189,7 +206,7 @@ export default function BlogManagement() {
                         : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
                     }`}
                   >
-                    <span>{selectedCategoryId ? categories.find(c => c.id === selectedCategoryId)?.name || 'Category' : 'All Categories'}</span>
+                    <span>{selectedCategoryId ? formatCategoryName(categories.find(c => c.id === selectedCategoryId)?.name || 'Category') : 'All Categories'}</span>
                     <svg 
                       className={`w-4 h-4 transition-transform ${isCategoryDropdownOpen ? 'rotate-180' : ''}`}
                       fill="none" 
@@ -240,7 +257,7 @@ export default function BlogManagement() {
                                 selectedCategoryId === category.id ? 'bg-red-50 text-red-600 font-medium' : 'text-gray-700'
                               }`}
                             >
-                              {category.name}
+                              {formatCategoryName(category.name)}
                             </button>
                           ))
                         )}
@@ -340,7 +357,13 @@ export default function BlogManagement() {
                         </span>
                       </td>
                       <td className="px-4 sm:px-6 py-4 text-sm text-gray-600 hidden lg:table-cell">
-                        {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : '-'}
+                        {post.publishedAt ? (() => {
+                          const date = new Date(post.publishedAt);
+                          const day = String(date.getDate()).padStart(2, '0');
+                          const month = String(date.getMonth() + 1).padStart(2, '0');
+                          const year = date.getFullYear();
+                          return `${day}/${month}/${year}`;
+                        })() : '-'}
                       </td>
                       <td className="px-4 sm:px-6 py-4">
                         <div className="flex items-center justify-center gap-2">

@@ -383,7 +383,7 @@ function EditTab(props: any) {
           onClick={() => setActiveSection('timeline')}
         />
         <SectionCard
-          title="CTA Section"
+          title="Call-to-Action Section"
           description="Call-to-action"
           onClick={() => setActiveSection('cta')}
         />
